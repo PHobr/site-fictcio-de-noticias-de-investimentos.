@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <!-- Configurações básicas -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Pedro, Carlos, Gabriel">
+  <title>IndexInvesting.com</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Biblioteca Chart.js para o gráfico -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <!--BANNER COM MENU-->
+  <header class="banner">
+    <div class="overlay">
+      <nav class="hero-menu">
+        <ul>
+          <li><a href="#titulo">Início</a></li>
+          <li><a href="#criadores">Criadores</a></li>
+          <li><a href="configuracoes.html">Configurações</a></li>
+          <li><a href="perfil.html">Perfil</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!--TÍTULO DA NOTÍCIA-->
+  <section class="titulo">
+    <h1>
+      Maior alta da bolsa de valores de todos os tempos! <br>
+      De acordo com o "Investidor 10", o Ibovespa fecha pregão nas alturas.
+    </h1>
+
+    <p>
+      Publicado dia 07/02/2026, por: Pedro, Carlos e Gabriel.
+    </p>
+  </section>
+
+  <!--CONTEÚDO PRINCIPAL-->
+  <main class="container">
+
+    <!--Início da notícia-->
+    <section id="inicio">
+      <p>
+        A bolsa de valores teve uma alta histórica de mais de 0,45%, marcando
+        mais de 180 mil pontos, uma marca que não era vista desde o ano 2000.
+      </p>
+    </section>
+
+    <!--GRÁFICO-->
+    <section class="grafico">
+      <h2>Gráfico de alta do Ibovespa</h2>
+      <canvas id="grafico"></canvas>
+    </section>
+
+    <!--ÍNDICES INTERNACIONAIS-->
+    <ul class="lista-indices">
+      <li><abbr title="Conjunto das 30 maiores empresas dos EUA">Dow Jones:</abbr> +2,47%</li>
+      <li><abbr title="Índice de tecnologia dos EUA">Nasdaq:</abbr> +1,97%</li>
+      <li><abbr title="Índice das 500 maiores empresas dos EUA">S&P 500:</abbr> +2,18%</li>
+    </ul>
+
+    <!--API DO DÓLAR-->
+    <p id="msg" class="dolar">Cotação do dólar:</p>
+
+    <script>
+      // Função para buscar a cotação do dólar
+      function buscardados() {
+        fetch('https://api.exchangerate-api.com/v4/latest/USD')
+          .then(response => response.json())
+          .then(data => {
+            const cotacao = data.rates.BRL.toFixed(2);
+            document.getElementById("msg").innerHTML =
+              "Cotação do dólar: R$ " + cotacao;
+          })
+          .catch(erro => console.log('Erro:', erro));
+      }
+
+      buscardados();
+      setInterval(buscardados, 30000);
+    </script>
+
+    <!--TEXTO COMPLEMENTAR-->
+    <h2>Outras notícias no mundo do IndexInvesting</h2>
+
+    <p>
+      Após a alta histórica do Ibovespa, outros índices também registraram ganhos.
+      Porém, algumas áreas ainda enfrentam desafios, como o mercado de criptomoedas.
+    </p>
+
+    <p>
+      Entre as ações em destaque estão
+      <strong>PETR4</strong>, <strong>VALE3</strong>,
+      <strong>BBAS3</strong> e <strong>ITUB4</strong>.
+    </p>
+    <div class="ad"></div>
+
+    </section>
+
+    <!--NOTÍCIAS RELACIONADAS-->
+    <section class="noticias-relacionadas">
+      <h2>Notícias Relacionadas</h2>
+
+      <div class="cards-container">
+
+        <div class="card">
+            <img src="imob.jpeg" alt="">
+          <div class="card-info">
+            <span class="categoria">Economia</span>
+            <h3>Fundos imobiliários ganham força com expectativa de juros menores.</h3>
+          </div>
+        </div>
+
+        <div class="card">
+            <img src="3alunos.png" alt="">
+          <div class="card-info">
+            <span class="categoria">Educação</span>
+            <h3>Alunos do SENAI recebem nota máxima em projeto de desenvolvimento.</h3>
+          </div>
+        </div>
+
+        <div class="card">
+            <img src="banco-brasil.png" alt="">
+          <div class="card-info">
+            <span class="categoria">Negócios</span>
+            <h3>Selic em queda anima investidores da renda variável.</h3>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!--BOTÃO EXTERNO-->
+    <h2 class="botao">
+      Clique no botão abaixo para saber mais sobre o mercado financeiro
+    </h2>
+
+    <button onclick="irpara()">Clique aqui</button>
+
+    <script>
+      function irpara() {
+        window.location.href = "https://investidor10.com.br";
+      }
+    </script>
+
+  </main>
+
+  <!--RODAPÉ-->
+  <footer class="footer">
+    <hr>
+
+    <section id="criadores">
+      <span class="direitos">
+        © 2026 IndexInvesting.com — Todos os direitos reservados.
+      </span>
+
+      <p>
+        <strong>Pedro</strong>: desenvolvimento do código |
+        <strong>Carlos</strong>: design |
+        <strong>Gabriel</strong>: documentação
+      </p>
+    </section>
+  </footer>
+
+  <!--SCRIPT DO GRÁFICO-->
+  <script src="coisas.js"></script>
+
+</body>
+</html>
+
+</html>
