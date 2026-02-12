@@ -29,14 +29,15 @@
     </div>
   </header>
 
+  <section class="container1">
   <!--TÍTULO DA NOTÍCIA-->
   <section class="titulo">
-    <h1>
+    <h1 class ="h1">
       Maior alta da bolsa de valores de todos os tempos! <br>
       De acordo com o "Investidor 10", o Ibovespa fecha pregão nas alturas.
     </h1>
 
-    <p>
+    <p class="publicaçao">
       Publicado dia 07/02/2026, por: Pedro, Carlos e Gabriel.
     </p>
   </section>
@@ -45,11 +46,12 @@
   <main class="container">
 
     <!--Início da notícia-->
-    <section id="inicio">
+    <section class="inicio">
       <p>
         A bolsa de valores teve uma alta histórica de mais de 0,45%, marcando
         mais de 180 mil pontos, uma marca que não era vista desde o ano 2000.
       </p>
+    </section>
     </section>
 
     <!--GRÁFICO-->
@@ -58,15 +60,17 @@
       <canvas id="grafico"></canvas>
     </section>
 
+    
     <!--ÍNDICES INTERNACIONAIS-->
     <ul class="lista-indices">
       <li><abbr title="Conjunto das 30 maiores empresas dos EUA">Dow Jones:</abbr> +2,47%</li>
       <li><abbr title="Índice de tecnologia dos EUA">Nasdaq:</abbr> +1,97%</li>
       <li><abbr title="Índice das 500 maiores empresas dos EUA">S&P 500:</abbr> +2,18%</li>
     </ul>
+  </section>
 
     <!--API DO DÓLAR-->
-    <p id="msg" class="dolar">Cotação do dólar:</p>
+    <p id="msg" class="dolar"><strong>Cotação do dólar:</strong></p>
 
     <script>
       // Função para buscar a cotação do dólar
@@ -86,20 +90,20 @@
     </script>
 
     <!--TEXTO COMPLEMENTAR-->
-    <h2>Outras notícias no mundo do IndexInvesting</h2>
-
-    <p>
+    <h2 class="h2">Outras notícias no mundo do IndexInvesting:</h2>
+<section class="complementar">
+    <p >
       Após a alta histórica do Ibovespa, outros índices também registraram ganhos.
       Porém, algumas áreas ainda enfrentam desafios, como o mercado de criptomoedas.
     </p>
 
     <p>
       Entre as ações em destaque estão
-      <strong>PETR4</strong>, <strong>VALE3</strong>,
-      <strong>BBAS3</strong> e <strong>ITUB4</strong>.
+      <strong><a href="https://investidor10.com.br/acoes/petr4/">PETR4</a></strong>, 
+      <strong><a href="https://investidor10.com.br/acoes/vale3/">VALE3</a></strong>,
+      <strong><a href="https://investidor10.com.br/acoes/bbas3/">BBAS3</a></strong> e 
+      <strong><a href="https://investidor10.com.br/acoes/itub4/">ITUB4</a></strong>.
     </p>
-    <div class="ad"></div>
-
     </section>
 
     <!--NOTÍCIAS RELACIONADAS-->
@@ -113,7 +117,9 @@
           <div class="card-info">
             <span class="categoria">Economia</span>
             <h3>Fundos imobiliários ganham força com expectativa de juros menores.</h3>
+            <a href="https://investidor10.com.br/fiis/mxrf11/">Saiba mais</a>
           </div>
+          </a>
         </div>
 
         <div class="card">
@@ -129,25 +135,29 @@
           <div class="card-info">
             <span class="categoria">Negócios</span>
             <h3>Selic em queda anima investidores da renda variável.</h3>
+             <a href="https://investidor10.com.br/indices/selic/">Saiba mais</a>
           </div>
+            </a>
         </div>
 
       </div>
     </section>
 
     <!--BOTÃO EXTERNO-->
-    <h2 class="botao">
+  <div class="botao">
+    <h2 >
       Clique no botão abaixo para saber mais sobre o mercado financeiro
     </h2>
 
-    <button onclick="irpara()">Clique aqui</button>
+      <button onclick="irpara()" class="botao2">Clique aqui</button>
+   
 
     <script>
       function irpara() {
         window.location.href = "https://investidor10.com.br";
       }
     </script>
-
+   </div>
   </main>
 
   <!--RODAPÉ-->

@@ -9,12 +9,42 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color: #222;
   line-height: 1.6;
-  text-align: center;
+  text-align: left;
   background-color: #f4f0ea;
+  
 }
-
-
-
+/*Meche no primeiro container para centralizar o conteúdo e deixar as laterais limpas*/
+.container1 {
+  padding: 0 10rem;
+}
+.h1 {
+  text-align: center;
+  margin: 20px 0;
+  color: #333;
+  font-size: 2.5rem;
+}
+/*inicio do conteúdo principal*/
+.titulo {
+  text-align: center;
+  margin: 20px 0;
+  color: #333;
+}
+.publicaçao {
+  text-align: left;
+  margin: 10px 0;
+  color: #666;
+  padding: 0 1rem;
+}
+.inicio{
+  text-align: left;
+  margin: 20px 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+.grafico{
+ padding: 0 1rem;
+ text-align: center;
+}
 /* BANNER */
 .banner {
   background-image:
@@ -57,7 +87,7 @@ body {
   font-weight: bold;
   padding: 8px 16px;
   background-color: blue;
-  border-radius: 5px;
+  border-radius: 6px;
 }
 
 .hero-menu a:hover {
@@ -95,13 +125,37 @@ body {
   background: #fff;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 4 pxsolid black;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .lista-indices{
   list-style-type: none;
- padding-bottom: 10px;
- padding-top: 10px;
+ padding-top: 0.5rem;
+ padding: 0 11.5rem;
+  font-size: 1.2rem;
+}
+/*Destaque para o dólar*/
+.dolar {
+  padding: 0.4rem 5rem;
+  font-size: 1.3rem;
+  margin: 0%  100px;
+}
+.h2 {
+  text-align: center;
+  margin: 20px 0;
+  color: #333;
+  font-size: 3rem;
+}
+.complementar {
+  text-align: left;
+  margin: 20px 0;
+  color: #333;
+  font-size: 1.5rem;
+  padding: 0 11.5rem;
+}
+/*Link das abreviaçoes das ações*/
+a {
+  color: #333;
 }
 
 .card img {
@@ -157,4 +211,33 @@ body {
     width: 100%;
   }
 }
+.footer {
+  background-color: #222;
+  color: #fff;
+  text-align: center;
+  padding: 15px 0;
+  margin-top: 40px;
+}
+.botao {
+  transition: all 0.3s ease;
+  text-align: center;
+  cursor: pointer;
+}
+.botao:hover {
+  transform: scale(1.05);
+}
+.botao2 {
+  transition: all 0.3s ease;
+  text-align: center;
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+.cards-container:hover {
+  transform: translateY(-8px);
+}
+
 
