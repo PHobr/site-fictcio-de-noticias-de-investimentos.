@@ -1,47 +1,140 @@
-//Codigo do grafico
-const ctx = document.getElementById('grafico');
 
-fetch('https://jsonplaceholder.typicode.com/posts')
-    .then(resposta => resposta.json())
-    .then(dados => {
+// === DADOS DOS TRÊS ÍNDICES ===
+const dadosIndices = {
+  ibovespa: {
+    nome: 'IBOVESPA',
+    labels: ['01/02', '02/02', '03/02', '04/02', '05/02', '06/02'],
+    valores: [181363, 182973, 185674, 181708, 182127, 182949],
+    cor: 'rgb(0, 69, 116)',
+    corFundo: 'rgba(0, 71, 117, 0.15)',
+    min: 180000, // valor mínimo do eixo Y
+    max: 187000, // valor máximo do eixo Y
+  },
+  qqq: {
+    nome: 'QQQ (Nasdaq ETF)',
+    labels: ['01/02', '02/02', '03/02', '04/02', '05/02', '06/02'],
+    valores: [478.20, 481.55, 479.30, 483.10, 486.75, 484.90],
+    cor: 'rgb(120, 40, 180)',
+    corFundo: 'rgba(120, 40, 180, 0.12)',
+    min: 475, // valor mínimo do eixo Y
+    max: 490, // valor máximo do eixo Y
+  },
+  mchi: {
+    nome: 'MCHI (China ETF)',
+    labels: ['01/02', '02/02', '03/02', '04/02', '05/02', '06/02'],
+    valores: [48.30, 47.90, 49.10, 48.60, 50.20, 49.75],
+    cor: 'rgb(200, 50, 50)',
+    corFundo: 'rgba(200, 50, 50, 0.12)',
+    min: 46, // valor mínimo do eixo Y
+    max: 52, // valor máximo do eixo Y
+  }
+};
 
-       new Chart(ctx, {
-    type: 'bar',
+// === VARIÁVEIS GLOBAIS ===
+let graficoAtual = null;       // instância do Chart.js
+let indiceAtivo  = 'ibovespa'; // índice selecionado agora
+
+// === RENDERIZA O GRÁFICO ===
+function renderizarGrafico(chave) {
+  const dados = dadosIndices[chave];
+  const ctx   = document.getElementById('grafico');
+
+  // Atualiza o título acima do gráfico
+  document.getElementById('grafico-titulo').textContent =
+    'Gráfico — ' + dados.nome;
+
+  // Destroi o gráfico anterior antes de criar um novo
+  if (graficoAtual) graficoAtual.destroy();
+
+  graficoAtual = new Chart(ctx, {
+    type: 'bar', // tipo de gráfico (pode ser 'line', 'bar', 'pie'(pizza), etc.)
     data: {
-        labels: ['01/02', '02/02', '03/02', '04/02', '05/02', '06/02'], //Poe data em cada caixa e em baixo de cada barra do gráfico
-        datasets: [{
-            label: 'Ibovespa',
-            data: [181.363, 182.973, 185.674, 181.708, 182.127, 182.949], //Valor escrito na caixa do curssor
-           //Por esse codigo antes sempre
-            backgroundColor: 'rgba(0, 71, 117, 0.2)',
-            borderColor: 'rgb(0, 69, 116)',
-            borderWidth: 1 //Muda a espessura da barra lateral do gráfico
-        }]
+      labels: dados.labels,
+      datasets: [{
+        label: dados.nome,
+        data: dados.valores,
+        backgroundColor: dados.corFundo,
+        borderColor: dados.cor,
+        borderWidth: 1
+      }]
     },
     options: {
-        scales: { //Põe os numeros da escala lateral 
-            y: {
-                min: 180.000, //Muda o número lateral 
-                max: 187.000
+      responsive: true,
+      scales: {
+        y: {
+          min: dados.min,
+          max: dados.max,
+          // Garante que os valores sempre aparecem no eixo lateral
+          ticks: {
+            count: 6,
+            callback: function(valor) {
+              // Números grandes (IBOVESPA): formata com ponto separador
+              if (valor >= 1000) return valor.toLocaleString('pt-BR');
+              // Números menores (QQQ, MCHI): mostra duas casas decimais
+              return valor.toFixed(2);
             }
-        },
-        plugins: {
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return  context.parsed.y; //Põe o valor na caixa 
-                    }
-                }
-            }
+          },
+          grid: {
+            color: 'rgba(0, 0, 0, 0.06)'
+          }
         }
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: ctx => ' ' + ctx.parsed.y.toLocaleString('pt-BR')
+          }
+        }
+      }
     }
+  });
 
+  // Atualiza o botão de favorito
+  atualizarBotaoFavorito(chave);
+}
+
+// === BOTÕES DE SELEÇÃO DE ÍNDICE ===
+document.querySelectorAll('.indice-btn').forEach(btn => {
+  btn.addEventListener('click', function () {
+    document.querySelectorAll('.indice-btn')
+      .forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+
+    indiceAtivo = this.dataset.indice;
+    renderizarGrafico(indiceAtivo);
+  });
 });
 
+//  FAVORITOS (salvo no localStorage) 
+function lerFavoritos() {
+  return JSON.parse(localStorage.getItem('favoritos') || '[]');
+}
 
-    })
-    .catch(erro => {
-        console.log('Erro ao buscar dados:', erro);
-    });
+function salvarFavoritos(lista) {
+  localStorage.setItem('favoritos', JSON.stringify(lista));
+} // Salva a lista de favoritos no localStorage
 
-    
+function alternarFavorito() {
+  const lista = lerFavoritos();
+  const idx   = lista.indexOf(indiceAtivo);
+  if (idx === -1) lista.push(indiceAtivo);
+  else lista.splice(idx, 1);
+  salvarFavoritos(lista);
+  atualizarBotaoFavorito(indiceAtivo);
+}// Alterna o estado de favorito do índice ativo e atualiza o botão
+
+function atualizarBotaoFavorito(chave) {
+  const btn       = document.getElementById('btnFavorito');
+  const favoritos = lerFavoritos();
+  if (favoritos.includes(chave)) {
+    btn.textContent = '★ Remover dos Favoritos';
+    btn.classList.add('favoritado');
+  } else {
+    btn.textContent = '☆ Adicionar aos Favoritos';
+    btn.classList.remove('favoritado');
+  }
+}// Atualiza o texto e estilo do botão de favorito com base no estado atual
+
+//  inicia com ibovespa como índice ativo
+renderizarGrafico('ibovespa');
+
