@@ -93,7 +93,7 @@ function renderizarGrafico(chave) {
   atualizarBotaoFavorito(chave);
 }
 
-// === BOTÕES DE SELEÇÃO DE ÍNDICE ===
+//  BOTÕES DE SELEÇÃO DE ÍNDICE 
 document.querySelectorAll('.indice-btn').forEach(btn => {
   btn.addEventListener('click', function () {
     document.querySelectorAll('.indice-btn')
@@ -105,15 +105,17 @@ document.querySelectorAll('.indice-btn').forEach(btn => {
   });
 });
 
-//  FAVORITOS (salvo no localStorage) 
+//  favoritos - Gerencia a lista de índices favoritos usando localStorage
 function lerFavoritos() {
   return JSON.parse(localStorage.getItem('favoritos') || '[]');
 }
 
+// Salva a lista de favoritos no localStorage
 function salvarFavoritos(lista) {
   localStorage.setItem('favoritos', JSON.stringify(lista));
-} // Salva a lista de favoritos no localStorage
+} 
 
+// Alterna o estado de favorito do índice ativo e atualiza o botão
 function alternarFavorito() {
   const lista = lerFavoritos();
   const idx   = lista.indexOf(indiceAtivo);
@@ -121,8 +123,9 @@ function alternarFavorito() {
   else lista.splice(idx, 1);
   salvarFavoritos(lista);
   atualizarBotaoFavorito(indiceAtivo);
-}// Alterna o estado de favorito do índice ativo e atualiza o botão
+}
 
+// Atualiza o texto e estilo do botão de favorito com base no estado atual
 function atualizarBotaoFavorito(chave) {
   const btn       = document.getElementById('btnFavorito');
   const favoritos = lerFavoritos();
@@ -133,7 +136,7 @@ function atualizarBotaoFavorito(chave) {
     btn.textContent = '☆ Adicionar aos Favoritos';
     btn.classList.remove('favoritado');
   }
-}// Atualiza o texto e estilo do botão de favorito com base no estado atual
+}
 
 //  inicia com ibovespa como índice ativo
 renderizarGrafico('ibovespa');
